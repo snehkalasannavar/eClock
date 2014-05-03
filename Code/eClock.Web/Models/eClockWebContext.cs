@@ -22,6 +22,8 @@ namespace eClock.Web.Models
         public System.Data.Entity.DbSet<eClock.Web.Models.Employee> Employees { get; set; }
 
         public System.Data.Entity.DbSet<eClock.Web.Models.Project> Projects { get; set; }
+
+        public System.Data.Entity.DbSet<eClock.Web.Models.Module> Modules { get; set; }
     
     }
 }

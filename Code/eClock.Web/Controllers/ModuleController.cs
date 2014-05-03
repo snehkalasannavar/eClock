@@ -1,97 +1,132 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using eClock.Web.Models;
 
 namespace eClock.Web.Controllers
 {
-    public class ModuleController : Controller
+    public class Module12Controller : Controller
     {
-        //
-        // GET: /Module/
+        private eClockWebContext db = new eClockWebContext();
+
+        // GET: /Module12/
         public ActionResult Index()
         {
-            return View();
+            var modules = db.Modules.Include(m => m.Project);
+            return View(modules.ToList());
         }
 
-        //
-        // GET: /Module/Details/5
-        public ActionResult Details(int id)
+        // GET: /Module12/Details/5
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Module module = db.Modules.Find(id);
+            if (module == null)
+            {
+                return HttpNotFound();
+            }
+            return View(module);
         }
 
-        //
-        // GET: /Module/Create
+        // GET: /Module12/Create
         public ActionResult Create()
         {
+            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name");
             return View();
         }
 
-        //
-        // POST: /Module/Create
+        // POST: /Module12/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,Name,ProjectId")] Module module)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
+                db.Modules.Add(module);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
+
+            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", module.ProjectId);
+            return View(module);
+        }
+
+        // GET: /Module12/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
             {
-                return View();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-        }
-
-        //
-        // GET: /Module/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        //
-        // POST: /Module/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
+            Module module = db.Modules.Find(id);
+            if (module == null)
             {
-                // TODO: Add update logic here
+                return HttpNotFound();
+            }
+            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", module.ProjectId);
+            return View(module);
+        }
 
+        // POST: /Module12/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,Name,ProjectId")] Module module)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(module).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", module.ProjectId);
+            return View(module);
         }
 
-        //
-        // GET: /Module/Delete/5
-        public ActionResult Delete(int id)
+        // GET: /Module12/Delete/5
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Module module = db.Modules.Find(id);
+            if (module == null)
+            {
+                return HttpNotFound();
+            }
+            return View(module);
         }
 
-        //
-        // POST: /Module/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        // POST: /Module12/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            Module module = db.Modules.Find(id);
+            db.Modules.Remove(module);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
-                return RedirectToAction("Index");
-            }
-            catch
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
             {
-                return View();
+                db.Dispose();
             }
+            base.Dispose(disposing);
         }
     }
 }

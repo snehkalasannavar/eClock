@@ -100,6 +100,30 @@ namespace eClock.Web.Controllers
             return View(project);
         }
 
+        public ActionResult DeleteModule(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Module module = db.Modules.Find(id);
+            if(module == null)
+            {
+                return HttpNotFound();
+            }
+            return View(module);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteModuleConfirmed(int id)
+        {
+            Module module = db.Modules.Find(id);
+            db.Modules.Remove(module);
+            db.SaveChanges();
+            return RedirectToAction("Edit");
+        }
+
         // POST: /Project/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

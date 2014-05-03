@@ -50,6 +50,28 @@
 }
 
 <div>
+    <h4>Modules</h4>
+    <table class="table">
+        <tr>
+            <th colspan="2">
+                Name
+            </th>
+        </tr>
+        @foreach (var item in Model.Modules)
+        {
+            <tr>
+                <td>
+                    @Html.EditorFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+<div>
     @Html.ActionLink("Back to List", "Index")
 </div>
 
