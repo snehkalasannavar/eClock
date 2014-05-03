@@ -114,14 +114,14 @@ namespace eClock.Web.Controllers
             return View(module);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteModule")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteModuleConfirmed(int id)
         {
             Module module = db.Modules.Find(id);
             db.Modules.Remove(module);
             db.SaveChanges();
-            return RedirectToAction("Edit");
+            return RedirectToAction("Edit", new { id =  module.ProjectId});
         }
 
         // POST: /Project/Delete/5
