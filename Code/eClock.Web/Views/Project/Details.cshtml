@@ -40,24 +40,15 @@
 
 <div>
     <h4>Modules</h4>
-    <table class="table">
-        <tr>
-            <th colspan="2">
-                Name
-            </th>
-        </tr>
+    <hr>
+    <dl class="dl-horizontal">
         @foreach (var item in Model.Modules)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.ActionLink("Delete", "DeleteModule", new { id = item.Id })
-                </td>
-            </tr>
+            <dd>
+                @Html.DisplayFor(modelItem => item.Name)
+            </dd>
         }
-    </table>
+    </dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
