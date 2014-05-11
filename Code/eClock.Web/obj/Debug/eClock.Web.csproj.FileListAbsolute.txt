@@ -108,3 +108,5 @@ D:\Sneh\Github\eClock\Code\eClock.Web\bin\Microsoft.Owin.Security.MicrosoftAccou
 D:\Sneh\Github\eClock\Code\eClock.Web\obj\Debug\eClock.Web.csprojResolveAssemblyReference.cache
 D:\Sneh\Github\eClock\Code\eClock.Web\obj\Debug\eClock.Web.dll
 D:\Sneh\Github\eClock\Code\eClock.Web\obj\Debug\eClock.Web.pdb
+D:\Sneh\Github\eClock\Code\eClock.Web\obj\Debug\eClock.Web.Migrations.ProjectState.resources
+D:\Sneh\Github\eClock\Code\eClock.Web\obj\Debug\eClock.Web.csproj.GenerateResource.Cache

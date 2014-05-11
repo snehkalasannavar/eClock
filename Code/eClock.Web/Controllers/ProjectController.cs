@@ -44,7 +44,7 @@ namespace eClock.Web.Controllers
         // POST: /Project/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Id,Name,StartDate,EndDate")] Project project)
+        public ActionResult Create([Bind(Include="Id,Name,StartDate,EndDate,State")] Project project)
         {
             if (ModelState.IsValid)
             {
@@ -74,7 +74,7 @@ namespace eClock.Web.Controllers
         // POST: /Project/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,Name,StartDate,EndDate")] Project project)
+        public ActionResult Edit([Bind(Include="Id,Name,StartDate,EndDate,State")] Project project)
         {
             if (ModelState.IsValid)
             {
