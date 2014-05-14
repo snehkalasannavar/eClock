@@ -35,6 +35,11 @@ namespace eClock.Web.Controllers
             return View(project);
         }
 
+        public ActionResult GetNewModuleRow()
+        {
+            return PartialView("NewModuleRow");
+        }
+
         // GET: /Project/Create
         public ActionResult Create()
         {
@@ -74,7 +79,7 @@ namespace eClock.Web.Controllers
         // POST: /Project/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,Name,StartDate,EndDate,State")] Project project)
+        public ActionResult Edit(/*[Bind(Include = "Id,Name,StartDate,EndDate,State,Modules")] */Project project)
         {
             if (ModelState.IsValid)
             {
@@ -98,6 +103,37 @@ namespace eClock.Web.Controllers
                 return HttpNotFound();
             }
             return View(project);
+        }
+
+        [HttpPost]
+        public ActionResult SaveModule([Bind(Include = "Id,Name,ProjectId")] Module module)
+        {
+            JsonResult returnSaveModule;
+            try
+            {
+                if (module.Id == 0)
+                {
+                    var newModule = db.Modules.Add(module);
+                    int newId = db.SaveChanges();
+                    returnSaveModule = Json(
+                        new 
+                        {
+                            Success = true,
+                            NewModuleId = newModule.Id
+                        });
+                }
+                else
+                {
+                    db.Entry(module).State = EntityState.Modified;
+                    db.SaveChanges();
+                    returnSaveModule = Json(new { Success = true });
+                }
+            }
+            catch (Exception exc)
+            {
+                returnSaveModule = Json(new { Error = exc.Message });
+            }
+            return returnSaveModule;
         }
 
         public ActionResult DeleteModule(int? id)

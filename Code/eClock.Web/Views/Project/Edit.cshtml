@@ -48,44 +48,86 @@
                 @Html.ValidationMessageFor(model => model.State)
             </div>
         </div>
-
+            
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
     </div>
-}
-
 <div>
     <h4>Modules</h4>
-    <table class="table">
-        <tr>
-            <th colspan="2">
-                Name
-            </th>
-        </tr>
-        @foreach (var item in Model.Modules)
-        {
-            <tr>
-                <td>
-                    @Html.EditorFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.ActionLink("Delete", "DeleteModule", new { id = item.Id })
-                </td>
-            </tr>
-        }
-    </table>
 </div>
+        <table class="table">
+                <tr>
+                    <th colspan="2">
+                        Name
+                    </th>
+                </tr>
+                @foreach (var item in Model.Modules)
+                {
+                    <tr>
+                        <td>
+                            <input type="text" class="moduleTextBox" value="@item.Name" data-module-id="@item.Id" />
+                            @Html.ActionLink("Save", "SaveModule", null, new { @class = "save-module",dataModuleId=@item.Id  })
+                            @Html.ActionLink("Delete", "DeleteModule", new { id = item.Id })
+                        </td>
+                        @*<td>
+                            @Html.ActionLink("Delete", "DeleteModule", new { id = item.Id })
+                        </td>*@
+                    </tr>
+                }
+        </table>
+<div>
+    @Html.ActionLink("Add Module", "CreateModule", null, new { @class = "add-module" })
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+}
 
     
 
-<div>
-    @Html.ActionLink("Add Module", "CreateModule") |
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
 @section Scripts {
+    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+    $('.add-module').click(function (module) {
+        module.preventDefault();
+        $.ajax({
+            url: "/Project/GetNewModuleRow"
+        }).done(function (newModuleRow) {
+            $(newModuleRow).insertAfter('table tr:last-child');
+            saveButtonHandler();
+        });
+    });
+
+
+    var saveButtonHandler = function () {
+        $('.save-module').click(function (event) {
+            event.preventDefault();
+            var moduleId = $(this).attr('dataModuleId');
+            var moduleName = $(this).parent('td').children('input').val();
+            //var moduleName = $('input[data-module-id = "' + moduleId + '"]').val();
+            var moduleProjectId = '@Model.Id';
+            $.ajax({
+                url: "/Project/SaveModule",
+                type: "POST",
+                data: {
+                    Id: moduleId,
+                    Name: moduleName,
+                    ProjectId: moduleProjectId
+                }
+            }).done(function (data) {
+                if (moduleId == 0) {
+                    $('input .moduleTextBox').data('module-id', data.moduleId);
+                }
+            });
+        });
+    };
+
+    saveButtonHandler();
+</script>
 }
+

@@ -241,6 +241,7 @@
     <Content Include="Views\Project\Index.cshtml" />
     <Content Include="Views\Project\DeleteModule.cshtml" />
     <Content Include="Views\Project\CreateModule.cshtml" />
+    <Content Include="Views\Project\NewModuleRow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
