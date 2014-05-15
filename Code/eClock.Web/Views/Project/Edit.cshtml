@@ -69,8 +69,8 @@
                     <tr>
                         <td>
                             <input type="text" class="moduleTextBox" value="@item.Name" data-module-id="@item.Id" />
-                            @Html.ActionLink("Save", "SaveModule", null, new { @class = "save-module",dataModuleId=@item.Id  })
-                            @Html.ActionLink("Delete", "DeleteModule", new { id = item.Id })
+                                @Html.ActionLink("Save", "SaveModule", null, new { @class = "save-module", dataModuleId = @item.Id })
+                                @Html.ActionLink("Delete", "DeleteModule",null, new { @class = "delete-module", dataModuleId = @item.Id })
                         </td>
                         @*<td>
                             @Html.ActionLink("Delete", "DeleteModule", new { id = item.Id })
@@ -93,13 +93,14 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
 <script type="text/javascript">
-    $('.add-module').click(function (module) {
-        module.preventDefault();
+    $('.add-module').click(function (event) {
+        event.preventDefault();
         $.ajax({
             url: "/Project/GetNewModuleRow"
         }).done(function (newModuleRow) {
             $(newModuleRow).insertAfter('table tr:last-child');
             saveButtonHandler();
+            deleteButtonHandler();
         });
     });
 
@@ -127,7 +128,30 @@
         });
     };
 
+    var deleteButtonHandler = function () {
+        $('.delete-module').click(function (event) {
+            event.preventDefault();
+            var delButton = $(this);
+            var moduleId = $(delButton).attr('dataModuleId');
+            if (moduleId == 0) {
+                $(delButton).closest('tr').remove();
+            }
+            else {
+                $.ajax({
+                    url: "/Project/DeleteModule",
+                    type: "POST",
+                    data: { moduleId: moduleId }
+                }).done(function (deleteModule) {
+                    if (deleteModule.Success) {
+                        $(delButton).closest('tr').remove();
+                    }
+                });
+            }
+        });
+    };
+
     saveButtonHandler();
+    deleteButtonHandler();
 </script>
 }
 
