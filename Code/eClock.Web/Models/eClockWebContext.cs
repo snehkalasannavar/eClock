@@ -24,6 +24,14 @@ namespace eClock.Web.Models
         public System.Data.Entity.DbSet<eClock.Web.Models.Project> Projects { get; set; }
 
         public System.Data.Entity.DbSet<eClock.Web.Models.Module> Modules { get; set; }
+
+        public System.Data.Entity.DbSet<eClock.Web.Models.WorkItem> WorkItems { get; set; }
+
+        public System.Data.Entity.DbSet<EmployeeWeek> EmployeeWeeks { get; set; }
+
+        public DbSet<RegisteredHours> RegisteredHours { get; set; }
+
+        public DbSet<TimeRegistration> TimeRegisterations { get; set; }
     
     }
 }

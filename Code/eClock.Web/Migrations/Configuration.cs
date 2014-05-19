@@ -9,7 +9,7 @@ namespace eClock.Web.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
             ContextKey = "eClock.Web.Models.eClockWebContext";
         }
 
