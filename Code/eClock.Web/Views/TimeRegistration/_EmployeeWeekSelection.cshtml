@@ -1,0 +1,18 @@
+﻿@model eClock.Web.Models.EmployeeWeekSelectionViewModel
+
+<div class="form-horizontal">
+    <div class="form-group">
+        @Html.LabelFor(model => model.Employees, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.Employees, new SelectList(Model.Employees, "Id", "FullName", Model.CurrentEmployee))
+            @Html.ValidationMessageFor(model => model.Employees)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.State, new { @class = "control-label col-md-2" })
+        <div class="col-lg-10">
+            @Html.DropDownListFor(model => model.State, new SelectList(Enum.GetValues(typeof(eClock.Web.Models.EmployeeWeekState))))
+        </div>
+    </div>
+</div>

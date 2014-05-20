@@ -7,12 +7,22 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using eClock.Web.Models;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace eClock.Web.Controllers
 {
     public class EmployeeController : Controller
     {
         private eClockWebContext db = new eClockWebContext();
+
+        public EmployeeController()
+        {
+            AccountController = new AccountController();
+        }
+
+        protected AccountController AccountController { get; private set; }
 
         // GET: /Employee/
         public ActionResult Index()
@@ -38,7 +48,12 @@ namespace eClock.Web.Controllers
         // GET: /Employee/Create
         public ActionResult Create()
         {
-            return View();
+            EmployeeViewModel employeeVM = new EmployeeViewModel
+            {
+                Employee = new Employee { },
+                User = new ApplicationUser { }
+            };
+            return View(employeeVM);
         }
 
         // POST: /Employee/Create
@@ -46,16 +61,27 @@ namespace eClock.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Id,FullName,UserName,Password")] Employee employee)
+        public async Task<ActionResult> Create([Bind(Include="Employee,User,Password")] EmployeeViewModel employeeVM)
         {
             if (ModelState.IsValid)
             {
-                db.Employees.Add(employee);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var result = await AccountController.UserManager.CreateAsync(employeeVM.User, employeeVM.Password);
+                if (result.Succeeded)
+                {
+                    employeeVM.Employee.UserId = employeeVM.User.Id;
+
+                    db.Employees.Add(employeeVM.Employee);
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                else 
+                {
+                    AccountController.AddErrors(result);
+                }
             }
 
-            return View(employee);
+            return View(employeeVM.Employee);
         }
 
         // GET: /Employee/Edit/5
@@ -66,11 +92,19 @@ namespace eClock.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Employee employee = db.Employees.Find(id);
+            var user = AccountController.UserManager.FindById(employee.UserId);
+
+            EmployeeViewModel vm = new EmployeeViewModel
+            {
+                Employee = employee,
+                User = user
+            };
+
             if (employee == null)
             {
                 return HttpNotFound();
             }
-            return View(employee);
+            return View(vm);
         }
 
         // POST: /Employee/Edit/5
@@ -78,15 +112,15 @@ namespace eClock.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,FullName,UserName,Password")] Employee employee)
+        public ActionResult Edit([Bind(Include="Employee")] EmployeeViewModel employeeVM)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(employee).State = EntityState.Modified;
+                db.Entry(employeeVM.Employee).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(employee);
+            return View(employeeVM);
         }
 
         // GET: /Employee/Delete/5

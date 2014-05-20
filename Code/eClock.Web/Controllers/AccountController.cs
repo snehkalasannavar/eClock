@@ -338,7 +338,7 @@ namespace eClock.Web.Controllers
             AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
         }
 
-        private void AddErrors(IdentityResult result)
+        public void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
             {

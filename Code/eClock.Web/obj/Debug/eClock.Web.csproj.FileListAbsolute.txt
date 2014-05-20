@@ -111,3 +111,5 @@ D:\Sneh\Github\eClock\Code\eClock.Web\obj\Debug\eClock.Web.pdb
 D:\Sneh\Github\eClock\Code\eClock.Web\obj\Debug\eClock.Web.Migrations.ProjectState.resources
 D:\Sneh\Github\eClock\Code\eClock.Web\obj\Debug\eClock.Web.csproj.GenerateResource.Cache
 D:\Sneh\Github\eClock\Code\eClock.Web\obj\Debug\eClock.Web.Migrations.AddedEmployeeWeekAndTimeRegisteration.resources
+D:\Sneh\Github\eClock\Code\eClock.Web\obj\Debug\eClock.Web.Migrations.AddedEmployeeFirstName.resources
+D:\Sneh\Github\eClock\Code\eClock.Web\obj\Debug\eClock.Web.Migrations.RemovedPasswordFromEmployee.resources

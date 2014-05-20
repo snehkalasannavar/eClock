@@ -1,0 +1,20 @@
+﻿@model eClock.Web.Models.TimeRegistrationViewModel
+
+@{
+    ViewBag.Title = "Weekly Time Registration";
+}
+
+<h2>Time Registration</h2>
+
+<div class="time-reg-column employee-week-selection">
+    @Html.Partial("_EmployeeWeekSelection", Model.EmployeeWeekSelectionVM)
+</div>
+
+<div data-container="registration-grid">
+    @Html.Partial("_TimeRegistrationGrid", Model.TimeRegistrations)
+</div>
+
+@section Scripts {
+    
+}
+
