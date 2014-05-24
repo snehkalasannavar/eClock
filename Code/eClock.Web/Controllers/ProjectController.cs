@@ -35,9 +35,9 @@ namespace eClock.Web.Controllers
             return View(project);
         }
 
-        public ActionResult GetNewModuleRow()
+        public ActionResult GetNewModuleRow(int projectId)
         {
-            return PartialView("NewModuleRow");
+            return PartialView("NewModuleRow", projectId);
         }
 
         // GET: /Project/Create

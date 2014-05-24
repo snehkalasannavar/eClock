@@ -8,6 +8,7 @@ namespace eClock.Web.Models
     public class TimeRegistrationViewModel
     {
         public EmployeeWeekSelectionViewModel EmployeeWeekSelectionVM { get; set; }
+        public WorkItemFinderViewModel WorkItemFinderVM { get; set; }
         public IEnumerable<TimeRegistration> TimeRegistrations { get; set; }
     }
 }

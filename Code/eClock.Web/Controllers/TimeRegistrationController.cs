@@ -18,6 +18,7 @@ namespace eClock.Web.Controllers
             TimeRegistrationViewModel timeRegistrationVM = new TimeRegistrationViewModel
             {
                 EmployeeWeekSelectionVM = GetEmployeeWeekSelection(),
+                WorkItemFinderVM = new WorkItemFinderViewModel { Projects = db.Projects.ToList() },
                 TimeRegistrations = new List<TimeRegistration>()
             };
             return View(timeRegistrationVM);

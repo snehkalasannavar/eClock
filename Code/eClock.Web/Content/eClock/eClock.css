@@ -1,0 +1,13 @@
+﻿.time-reg-column {
+    position: relative;
+    display: inline-block;
+    border: solid 1px #CFCFCF;
+}
+
+.employee-week-selection {
+    width: 30%;
+}
+
+.work-item-finder {
+    width: 60%;
+}

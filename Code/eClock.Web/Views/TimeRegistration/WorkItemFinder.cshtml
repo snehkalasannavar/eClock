@@ -1,0 +1,13 @@
+﻿@model eClock.Web.Models.WorkItemFinderViewModel
+
+<div class="form-horizontal">
+    @Html.ValidationSummary(true)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ProjectId, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.ProjectId, new SelectList(Model.Projects, "Id", "Name", Model.ProjectId), new { @class = Model.ProjectFilterRequired ? "" : "disabled" })
+            @Html.ValidationMessageFor(model => model.ProjectId)
+        </div>
+    </div>
+</div>

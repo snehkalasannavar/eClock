@@ -1,0 +1,29 @@
+﻿@model eClock.Web.Models.Project
+
+<div>
+    <h4>Modules</h4>
+</div>
+<table class="table">
+    <tr>
+        <th colspan="2">
+            Name
+        </th>
+    </tr>
+    @foreach (var item in Model.Modules)
+    {
+        <tr>
+            <td>
+                <input type="text" class="moduleTextBox" value="@item.Name" data-module-id="@item.Id" />
+                @Html.ActionLink("Save", "SaveModule", null, new { @class = "save-module", dataModuleId = @item.Id })
+                @Html.ActionLink("Delete", "DeleteModule", null, new { @class = "delete-module", dataModuleId = @item.Id })
+            </td>
+            @*<td>
+                    @Html.ActionLink("Delete", "DeleteModule", new { id = item.Id })
+                </td>*@
+        </tr>
+    }
+</table>
+
+<div>
+    @Html.ActionLink("Add Module", "CreateModule", null, new { @class = "add-module", projectId=Model.Id  })
+</div>
