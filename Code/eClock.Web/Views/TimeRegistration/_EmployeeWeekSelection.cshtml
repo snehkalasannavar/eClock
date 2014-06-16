@@ -9,6 +9,22 @@
         </div>
     </div>
 
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.SelectedWeek, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.SelectedWeek, new { @class = "selected-week" })
+            @Html.ValidationMessageFor(model => model.SelectedWeek)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-2"></div>
+        <div class="col-md-10">
+            <div class="week-selector"></div>
+        </div>
+    </div>
+
     <div class="form-group">
         @Html.LabelFor(model => model.State, new { @class = "control-label col-md-2" })
         <div class="col-lg-10">

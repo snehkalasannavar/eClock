@@ -4,6 +4,8 @@
     ViewBag.Title = "Weekly Time Registration";
 }
 
+@Styles.Render("~/Content/jqueryui")
+
 <h2>Time Registration</h2>
 
 <div class="time-reg-column employee-week-selection">
@@ -19,6 +21,8 @@
 </div>
 
 @section Scripts {
-    
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryui")
+    <script src="~/Scripts/TimeReg/eClock.TimeReg.js"></script>
 }
 

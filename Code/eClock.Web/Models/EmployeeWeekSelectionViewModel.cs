@@ -15,6 +15,9 @@ namespace eClock.Web.Models
         //public IEnumerable<Week> Weeks { get; set; }
         public Week CurrentWeek { get; set; }
 
+        [Display(Name = "Select Week")]
+        public string SelectedWeek { get; set; }
+
         public EmployeeWeekState State { get; set; }
     }
 }

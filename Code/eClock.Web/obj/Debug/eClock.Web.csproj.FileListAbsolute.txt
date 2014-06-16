@@ -105,7 +105,6 @@ D:\Sneh\Github\eClock\Code\eClock.Web\bin\Microsoft.Owin.Security.OAuth.xml
 D:\Sneh\Github\eClock\Code\eClock.Web\bin\Microsoft.Owin.Security.Google.xml
 D:\Sneh\Github\eClock\Code\eClock.Web\bin\Microsoft.Owin.Security.Twitter.xml
 D:\Sneh\Github\eClock\Code\eClock.Web\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-D:\Sneh\Github\eClock\Code\eClock.Web\obj\Debug\eClock.Web.csprojResolveAssemblyReference.cache
 D:\Sneh\Github\eClock\Code\eClock.Web\obj\Debug\eClock.Web.dll
 D:\Sneh\Github\eClock\Code\eClock.Web\obj\Debug\eClock.Web.pdb
 D:\Sneh\Github\eClock\Code\eClock.Web\obj\Debug\eClock.Web.Migrations.ProjectState.resources
@@ -113,3 +112,4 @@ D:\Sneh\Github\eClock\Code\eClock.Web\obj\Debug\eClock.Web.csproj.GenerateResour
 D:\Sneh\Github\eClock\Code\eClock.Web\obj\Debug\eClock.Web.Migrations.AddedEmployeeWeekAndTimeRegisteration.resources
 D:\Sneh\Github\eClock\Code\eClock.Web\obj\Debug\eClock.Web.Migrations.AddedEmployeeFirstName.resources
 D:\Sneh\Github\eClock\Code\eClock.Web\obj\Debug\eClock.Web.Migrations.RemovedPasswordFromEmployee.resources
+D:\Sneh\Github\eClock\Code\eClock.Web\obj\Debug\eClock.Web.csprojResolveAssemblyReference.cache
