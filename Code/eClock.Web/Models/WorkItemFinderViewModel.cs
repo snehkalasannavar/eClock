@@ -13,6 +13,14 @@ namespace eClock.Web.Models
         public int ProjectId { get; set; }
         public virtual ICollection<Project> Projects { get; set; }
 
+        public bool EmployeeFilterRequired { get; set; }
+        [ForeignKey("Employee")]
+        public int EmployeeId { get; set; }
+        public virtual ICollection<Employee> Employees { get; set; }
+
+        public bool StateFilterRequired { get; set; }
+        public WorkItemState State { get; set; }
+
         public IEnumerable<WorkItem> WorkItems { get; set; }
     }
 }

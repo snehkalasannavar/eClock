@@ -17,7 +17,9 @@ namespace eClock.Web.Controllers
         // GET: /Project/
         public ActionResult Index()
         {
-            return View(db.Projects.ToList());
+            DbSet<Project> p = db.Projects;
+
+            return View(p.ToList());
         }
 
         // GET: /Project/Details/5

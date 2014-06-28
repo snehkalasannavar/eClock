@@ -1,4 +1,4 @@
-﻿@model IEnumerable<eClock.Web.Models.WorkItem>
+﻿@model eClock.Web.Models.WorkItemViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -8,22 +8,33 @@
 
 <p>
     @Html.ActionLink("Create New", "Create")
+    
+    @using (Html.BeginForm("Index", "WorkItem", FormMethod.Get))
+    {
+        <p>
+            State: @Html.TextBox("SearchString") <br />
+            <input type="submit" value="Filter" />
+        </p>
+    }
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Project.Name)
+            @*@Html.DisplayNameFor(model => model.Project.Name)*@
+            Project
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            @*@Html.DisplayNameFor(model => model.Title)*@
+            Title
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.State)
+            @*@Html.DisplayNameFor(model => model.State)*@
+            State
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model.WorkItemList) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Project.Name)

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using eClock.Web.Models;
+using eClock.Web.Utilities;
 
 namespace eClock.Web.Controllers
 {
@@ -15,10 +16,21 @@ namespace eClock.Web.Controllers
         private eClockWebContext db = new eClockWebContext();
 
         // GET: /WorkItem/
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
+            var workItems = from wi in db.WorkItems
+                            select wi;
             var workitems = db.WorkItems.Include(w => w.Employee).Include(w => w.Project);
-            return View(workitems.ToList());
+
+            var list1 = workitems.ToList();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                var workItemState = EnumUtility.ParseEnum<WorkItemState>(searchString);
+                workItems = workItems.Where(s => s.State == workItemState);//.Contains(searchString)
+                var list = workItems.ToList();
+            }
+            return View(new WorkItemViewModel { WorkItemList = workItems/*, WorkItemSearchString = workItems*/ });
         }
 
         // GET: /WorkItem/Details/5
@@ -49,7 +61,7 @@ namespace eClock.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Id,Title,Description,State,EmployeeId,ProjectId")] WorkItem workitem)
+        public ActionResult Create([Bind(Include = "Id,Title,Description,State,EmployeeId,ProjectId")] WorkItem workitem)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +97,7 @@ namespace eClock.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,Title,Description,State,EmployeeId,ProjectId")] WorkItem workitem)
+        public ActionResult Edit([Bind(Include = "Id,Title,Description,State,EmployeeId,ProjectId")] WorkItem workitem)
         {
             if (ModelState.IsValid)
             {
